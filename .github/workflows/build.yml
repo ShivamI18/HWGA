@@ -22,6 +22,11 @@ jobs:
       - name: Reset Swift Package Cache
         run: rm -rf ~/.swiftpm && rm -rf .build
 
+      - name: Generate Xcode Project
+        run: |
+          rm -rf BackgroundVideoRecorder.xcodeproj
+          swift package generate-xcodeproj
+
       - name: Resolve Swift Package Dependencies
         run: swift package resolve
 
@@ -31,9 +36,9 @@ jobs:
       - name: Build and Archive for iPhone 13
         run: |
           xcodebuild clean archive \
-            -project HWGA.xcodeproj \
-            -scheme HWGA \
-            -archivePath build/HWGA.xcarchive \
+            -project BackgroundVideoRecorder.xcodeproj \
+            -scheme BackgroundVideoRecorder \
+            -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
             -arch arm64 \
@@ -49,7 +54,7 @@ jobs:
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
-            -archivePath build/HWGA.xcarchive \
+            -archivePath build/BackgroundVideoRecorder.xcarchive \
             -exportOptionsPlist exportOptions.plist \
             -exportPath IPA/ \
             CODE_SIGN_STYLE=Manual
