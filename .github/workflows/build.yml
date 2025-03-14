@@ -11,10 +11,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Latest version
+        uses: actions/checkout@v4  # Ensure you are using the latest version
 
       - name: Set up Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+
+      - name: Resolve Swift Package Dependencies
+        run: swift package resolve
 
       - name: Build and Archive for iPhone 13
         run: |
@@ -39,7 +42,7 @@ jobs:
             CODE_SIGN_STYLE=Manual | xcpretty
 
       - name: Upload IPA as Artifact
-        uses: actions/upload-artifact@v4  # Updated to v4
+        uses: actions/upload-artifact@v4  # Ensure you are using the latest version
         with:
           name: Unsigned-IPA
           path: IPA/*.ipa  # Uploads the IPA from IPA/ folder
