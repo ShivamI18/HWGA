@@ -26,7 +26,7 @@ jobs:
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
-            -arch arm64 \  # Ensures iPhone 13 compatibility
+            -arch arm64 \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
