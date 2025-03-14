@@ -16,10 +16,6 @@ jobs:
       - name: Set up Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-      - name: Resolve Swift Package Dependencies
-        run: |
-          swift package resolve --package-path ./Package.swift  # Explicit reference to Package.swift
-
       - name: Build and Archive for iPhone 13
         run: |
           xcodebuild clean archive \
