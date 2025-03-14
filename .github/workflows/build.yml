@@ -19,17 +19,16 @@ jobs:
       - name: Resolve Swift Package Dependencies
         run: swift package resolve
 
-      - name: Build and Archive for iPhone 13 (Debugging)
+      - name: Build and Archive for iPhone 13
         run: |
           xcodebuild clean archive \
-            -project BackgroundVideoRecorder.xcodeproj \
             -scheme BackgroundVideoRecorder \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
             -arch arm64 \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO | xcpretty
 
       - name: Create IPA Directory
         run: mkdir -p IPA  # Ensures IPA is saved at root
