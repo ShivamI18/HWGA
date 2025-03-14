@@ -22,6 +22,7 @@ jobs:
       - name: Build and Archive for iPhone 13 (Debugging)
         run: |
           xcodebuild clean archive \
+            -project BackgroundVideoRecorder.xcodeproj \
             -scheme BackgroundVideoRecorder \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
