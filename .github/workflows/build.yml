@@ -11,38 +11,54 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Ensure you are using the latest version
+        uses: actions/checkout@v4
 
       - name: Set up Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
+      - name: Clean Derived Data
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData && rm -rf build
+
+      - name: Reset Swift Package Cache
+        run: rm -rf ~/.swiftpm && rm -rf .build
+
       - name: Resolve Swift Package Dependencies
         run: swift package resolve
+
+      - name: List Available Schemes
+        run: xcodebuild -list
 
       - name: Build and Archive for iPhone 13
         run: |
           xcodebuild clean archive \
-            -scheme BackgroundVideoRecorder \
-            -archivePath build/BackgroundVideoRecorder.xcarchive \
+            -project HWGA.xcodeproj \
+            -scheme HWGA \
+            -archivePath build/HWGA.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
             -arch arm64 \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGNING_ALLOWED=NO | xcpretty
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Verify Archive Exists
+        run: ls -l build/
 
       - name: Create IPA Directory
-        run: mkdir -p IPA  # Ensures IPA is saved at root
+        run: mkdir -p IPA
 
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
-            -archivePath build/BackgroundVideoRecorder.xcarchive \
+            -archivePath build/HWGA.xcarchive \
             -exportOptionsPlist exportOptions.plist \
             -exportPath IPA/ \
-            CODE_SIGN_STYLE=Manual | xcpretty
+            CODE_SIGN_STYLE=Manual
+
+      - name: Verify IPA Exists
+        run: ls -l IPA/
 
       - name: Upload IPA as Artifact
-        uses: actions/upload-artifact@v4  # Ensure you are using the latest version
+        uses: actions/upload-artifact@v4
         with:
           name: Unsigned-IPA
-          path: IPA/*.ipa  # Uploads the IPA from IPA/ folder
+          path: IPA/*.ipa
