@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "BackgroundVideoRecorder",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v14)  // Supports iOS 14 and above (iPhone 13 is iOS 15+)
     ],
     products: [
         .library(
@@ -13,23 +13,16 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.6.0"),
-        .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.1"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.15.0"),
-        .package(url: "https://github.com/BradLarson/GPUImage.git", from: "0.1.7")
+        // Add dependencies here if needed
     ],
     targets: [
         .target(
             name: "BackgroundVideoRecorder",
-            dependencies: [
-                "Alamofire",
-                "SwiftyJSON",
-                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseDatabase", package: "firebase-ios-sdk"),
-                .product(name: "FirebaseStorage", package: "firebase-ios-sdk"),
-                "GPUImage"
-            ],
-            path: "BackgroundVideoRecorder"
+            dependencies: [],
+            path: "BackgroundVideoRecorder",
+            swiftSettings: [
+                .define("ENABLE_ARM64")  // Ensures ARM64 compatibility
+            ]
         )
     ]
 )
