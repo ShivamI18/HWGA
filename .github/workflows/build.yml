@@ -35,7 +35,7 @@ jobs:
         run: |
           xcodebuild -exportArchive \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
-            -exportOptionsPlist ExportOptions.plist \
+            -exportOptionsPlist exportOptions.plist \
             -exportPath build/IPA \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
