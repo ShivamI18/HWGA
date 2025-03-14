@@ -11,27 +11,28 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4  # Updated to v4
+        uses: actions/checkout@v4  # Latest version
 
       - name: Set up Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
       - name: Resolve Swift Package Dependencies
         run: |
-          swift package --package-path Package.swift resolve
+          swift package resolve --package-path ./Package.swift  # Explicit reference to Package.swift
 
-      - name: Build and Archive
+      - name: Build and Archive for iPhone 13
         run: |
           xcodebuild clean archive \
             -scheme BackgroundVideoRecorder \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
+            -arch arm64 \  # Ensures iPhone 13 compatibility
             CODE_SIGN_STYLE=Manual \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
       - name: Create IPA Directory
-        run: mkdir -p IPA  # Creates IPA/ folder at root
+        run: mkdir -p IPA  # Ensures IPA is saved at root
 
       - name: Export IPA
         run: |
