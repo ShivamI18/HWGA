@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      
 
 jobs:
   build:
@@ -12,20 +11,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Updated to v4
 
       - name: Set up Xcode
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-      - name: Install CocoaPods using Gem
-        run: |
-          sudo gem install cocoapods
-          pod install --project-directory=.
+      - name: Resolve Swift Package Dependencies
+        run: swift package resolve
 
       - name: Build and Archive
         run: |
           xcodebuild clean archive \
-            -workspace BackgroundVideoRecorder.xcworkspace \
             -scheme BackgroundVideoRecorder \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
@@ -33,19 +29,19 @@ jobs:
             CODE_SIGN_STYLE=Manual \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
+      - name: Create IPA Directory
+        run: mkdir -p IPA  # Creates IPA/ folder at root
+
       - name: Export IPA
         run: |
           xcodebuild -exportArchive \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -exportOptionsPlist exportOptions.plist \
-            -exportPath build/BVR/ \
+            -exportPath IPA/ \
             CODE_SIGN_STYLE=Manual | xcpretty
 
-      - name: List Export Directory
-        run: ls -R build/BVR/
-
       - name: Upload IPA as Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: Unsigned-IPA
-          path: build/BVR/*.ipa
+          path: IPA/*.ipa  # Uploads the IPA from IPA/ folder
