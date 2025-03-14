@@ -1,3 +1,4 @@
+// swift-tools-version: 5.10
 import PackageDescription
 
 let package = Package(
@@ -20,4 +21,3 @@ let package = Package(
         )
     ]
 )
-
