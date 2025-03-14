@@ -1,27 +1,32 @@
-// swift-tools-version: 5.1
+// swift-tools-version: 5.10
 import PackageDescription
 
 let package = Package(
-    name: "BackgroundVideoRecorder",
+    name: "HWGA",
     platforms: [
-        .iOS(.v14)  // Supports iOS 14 and above (iPhone 13 is iOS 15+)
+        .iOS(.v14) // Ensures compatibility with iPhone 13+
     ],
     products: [
         .library(
-            name: "BackgroundVideoRecorder",
-            targets: ["BackgroundVideoRecorder"]
+            name: "HWGA",
+            targets: ["HWGA"]
         )
     ],
     dependencies: [
-        // Add dependencies here if needed
+        // Add your dependencies here, example:
+        // .package(url: "https://github.com/YourDependency/Repo.git", from: "1.0.0")
+        dependencies: [
+    .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
+    .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "8.0.0")
+],
     ],
     targets: [
         .target(
-            name: "BackgroundVideoRecorder",
+            name: "HWGA",
             dependencies: [],
-            path: "BackgroundVideoRecorder",
+            path: "HWGA",
             swiftSettings: [
-                .define("ENABLE_ARM64")  // Ensures ARM64 compatibility
+                .define("ENABLE_ARM64") // Ensures ARM64 compatibility for iPhone 13+
             ]
         )
     ]
