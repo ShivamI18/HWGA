@@ -17,7 +17,8 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
       - name: Resolve Swift Package Dependencies
-        run: swift package resolve
+        run: |
+          swift package --package-path Package.swift resolve
 
       - name: Build and Archive
         run: |
