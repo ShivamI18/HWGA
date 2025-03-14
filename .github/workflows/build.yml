@@ -37,7 +37,6 @@ jobs:
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath build/IPA \
-            -exportFormat ipa \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
       - name: Upload IPA
