@@ -1,10 +1,99 @@
-// !$*UTF8*$!
-{
+// project.pbxproj
+// Generated for BackgroundVideoRecorder with Swift Package Manager
+
+PBXProject {
     archiveVersion = 1;
-    objectVersion = 46;
-    classes = {
-    };
+    objectVersion = 52;
+    classes = {};
     objects = {
+        
+        /* Project object */
+        PBXProject_1 = {
+            isa = PBXProject;
+            attributes = {
+                LastUpgradeCheck = 1400;
+                ORGANIZATIONNAME = "Your Organization";
+            };
+            buildConfigurationList = BuildConfigurationList_1;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en
+            );
+            mainGroup = MainGroup_1;
+            targets = (
+                Target_BackgroundVideoRecorder,
+            );
+        };
+
+        /* Main Target */
+        Target_BackgroundVideoRecorder = {
+            isa = PBXNativeTarget;
+            name = "BackgroundVideoRecorder";
+            buildConfigurationList = BuildConfigurationList_2;
+            buildPhases = (
+                SourcesPhase,
+                FrameworksPhase,
+            );
+            productName = "BackgroundVideoRecorder";
+            productType = "com.apple.product-type.application";
+        };
+
+        /* Source Files */
+        SourcesPhase = {
+            isa = PBXSourcesBuildPhase;
+            files = (
+                File_BackgroundVideoRecorder_Swift,
+            );
+        };
+
+        /* Frameworks */
+        FrameworksPhase = {
+            isa = PBXFrameworksBuildPhase;
+            files = (
+                File_Foundation,
+                File_AVFoundation,
+            );
+        };
+
+        /* Swift Files */
+        File_BackgroundVideoRecorder_Swift = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            path = "BackgroundVideoRecorder.swift";
+            sourceTree = "<group>";
+        };
+
+        /* Dependencies */
+        File_Foundation = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.framework;
+            path = Foundation.framework;
+            sourceTree = SDKROOT;
+        };
+        File_AVFoundation = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.framework;
+            path = AVFoundation.framework;
+            sourceTree = SDKROOT;
+        };
+
+        /* Build Settings */
+        BuildConfigurationList_1 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                Debug,
+                Release,
+            );
+        };
+
+        BuildConfigurationList_2 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                Debug,
+                Release,
+            );
+        };
     };
-    rootObject = 00000000000000000000000000000000;
 }
