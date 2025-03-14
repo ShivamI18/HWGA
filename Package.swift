@@ -13,8 +13,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "8.0.0")
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from:"5.4.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from:"8.0.0")
     ],
     targets: [
         .target(
