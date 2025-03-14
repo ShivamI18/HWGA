@@ -1,27 +1,27 @@
-name: Build IPA without Signing
+name: Build Unsigned IPA
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+        run: sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-      - name: Install Dependencies
+      - name: Install CocoaPods using Gem
         run: |
-          gem install xcpretty
-          sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+          sudo gem install cocoapods
+          pod install --project-directory=.
 
-      - name: Ensure Build Path Exists
-        run: mkdir -p build/IPA
-
-      - name: Build the App
+      - name: Build and Archive
         run: |
           xcodebuild clean archive \
             -workspace BackgroundVideoRecorder.xcworkspace \
@@ -29,18 +29,22 @@ jobs:
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
+            CODE_SIGN_STYLE=Manual \
             CODE_SIGNING_ALLOWED=NO | xcpretty
 
       - name: Export IPA
-          run: |
-            xcodebuild -exportArchive \
+        run: |
+          xcodebuild -exportArchive \
             -archivePath build/BackgroundVideoRecorder.xcarchive \
             -exportOptionsPlist exportOptions.plist \
             -exportPath build/BVR/ \
             CODE_SIGN_STYLE=Manual | xcpretty
 
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
+      - name: List Export Directory
+        run: ls -R build/BVR/
+
+      - name: Upload IPA as Artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: BackgroundVideoRecorder.ipa
-          path: build/BVR/
+          name: Unsigned-IPA
+          path: build/BVR/*.ipa
