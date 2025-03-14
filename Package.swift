@@ -13,20 +13,18 @@ let package = Package(
         )
     ],
     dependencies: [
-        // If you use any dependencies, add them here
-        dependencies: [
-                .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
-                .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0")
-]
+        // Add external dependencies here
+        .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.4.0"),
+        .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0")
     ],
     targets: [
-    .target(
-        name: "HWGA",
-        dependencies: ["Alamofire", "SwiftyJSON"],
-        path: "HWGA",
-        swiftSettings: [
-            .define("ENABLE_ARM64") // Ensures ARM64 compatibility for iPhone 13+
-        ]
-    )
-]
+        .target(
+            name: "HWGA",
+            dependencies: ["Alamofire", "SwiftyJSON"],
+            path: "HWGA",
+            swiftSettings: [
+                .define("ENABLE_ARM64") // Ensures ARM64 compatibility for iPhone 13+
+            ]
+        )
+    ]
 )
